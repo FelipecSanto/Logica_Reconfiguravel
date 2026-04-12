@@ -1,0 +1,18 @@
+# Quartus and ModelSim generated files
+Tarefa3/ProjetoQuartus/db/
+Tarefa3/ProjetoQuartus/output_files/
+Tarefa3/ProjetoQuartus/incremental_db/
+Tarefa3/ProjetoQuartus/rtl_work/
+Tarefa3/ProjetoQuartus/work/
+Tarefa3/ProjetoQuartus/transcript
+Tarefa3/ProjetoQuartus/vsim.wlf
+Tarefa3/ProjetoQuartus/wlf*
+Tarefa3/ProjetoQuartus/simulation/modelsim/gate_work/
+Tarefa3/ProjetoQuartus/simulation/modelsim/rtl_work/
+Tarefa3/ProjetoQuartus/simulation/modelsim/work/
+Tarefa3/ProjetoQuartus/simulation/modelsim/transcript
+Tarefa3/ProjetoQuartus/simulation/modelsim/msim_transcript
+Tarefa3/ProjetoQuartus/simulation/modelsim/cronometro_6_*
+Tarefa3/ProjetoQuartus/simulation/modelsim/cronometro_min_*
+Tarefa3/ProjetoQuartus/simulation/modelsim/cronometro_modelsim.xrf
+Tarefa3/ProjetoQuartus/simulation/modelsim/cronometro.sft

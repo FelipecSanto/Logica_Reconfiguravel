@@ -1,0 +1,124 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# Date created = 13:36:55  April 05, 2026
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		cronometro_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE22F17C6
+set_global_assignment -name TOP_LEVEL_ENTITY cronometro
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "13:36:55  APRIL 05, 2026"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.2V
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VHDL_FILE bcd_7seg.vhd
+set_global_assignment -name VHDL_FILE cont_4.vhd
+set_global_assignment -name VHDL_FILE cronometro.vhd
+set_global_assignment -name VHDL_FILE cronometro_rtl_tb.vhd
+
+set_location_assignment PIN_E1 -to CLK
+set_location_assignment PIN_M2 -to RST
+set_location_assignment PIN_K5 -to CLR
+set_location_assignment PIN_T6 -to EN
+set_location_assignment PIN_F15 -to BTN_PLAY_PAUSE
+set_location_assignment PIN_D14 -to BTN_RESET
+
+set_location_assignment PIN_D16 -to Q_cs[0]
+set_location_assignment PIN_E10 -to Q_cs[1]
+set_location_assignment PIN_F14 -to Q_cs[2]
+set_location_assignment PIN_D15 -to Q_cs[3]
+set_location_assignment PIN_A12 -to Q_cs[4]
+set_location_assignment PIN_C11 -to Q_cs[5]
+set_location_assignment PIN_B11 -to Q_cs[6]
+set_location_assignment PIN_A11 -to Q_cs[7]
+
+set_location_assignment PIN_J14 -to Q_s[0]
+set_location_assignment PIN_L15 -to Q_s[1]
+set_location_assignment PIN_K16 -to Q_s[2]
+set_location_assignment PIN_J13 -to Q_s[3]
+set_location_assignment PIN_L16 -to Q_s[4]
+set_location_assignment PIN_N16 -to Q_s[5]
+set_location_assignment PIN_N15 -to Q_s[6]
+set_location_assignment PIN_L14 -to Q_s[7]
+
+set_location_assignment PIN_D12 -to HEX0[0]
+set_location_assignment PIN_B12 -to HEX0[1]
+set_location_assignment PIN_F13 -to HEX0[2]
+set_location_assignment PIN_B14 -to HEX0[3]
+set_location_assignment PIN_B13 -to HEX0[4]
+set_location_assignment PIN_D11 -to HEX0[5]
+set_location_assignment PIN_G16 -to HEX0[6]
+
+set_location_assignment PIN_C9 -to HEX1[0]
+set_location_assignment PIN_A10 -to HEX1[1]
+set_location_assignment PIN_B10 -to HEX1[2]
+set_location_assignment PIN_D9 -to HEX1[3]
+set_location_assignment PIN_F9 -to HEX1[4]
+set_location_assignment PIN_E9 -to HEX1[5]
+set_location_assignment PIN_A15 -to HEX1[6]
+
+set_location_assignment PIN_C15 -to HEX2[0]
+set_location_assignment PIN_A13 -to HEX2[1]
+set_location_assignment PIN_C14 -to HEX2[2]
+set_location_assignment PIN_L13 -to HEX2[3]
+set_location_assignment PIN_J16 -to HEX2[4]
+set_location_assignment PIN_J15 -to HEX2[5]
+set_location_assignment PIN_K15 -to HEX2[6]
+
+set_location_assignment PIN_N12 -to HEX3[0]
+set_location_assignment PIN_R14 -to HEX3[1]
+set_location_assignment PIN_N14 -to HEX3[2]
+set_location_assignment PIN_P16 -to HEX3[3]
+set_location_assignment PIN_P14 -to HEX3[4]
+set_location_assignment PIN_R16 -to HEX3[5]
+set_location_assignment PIN_P15 -to HEX3[6]
+
+set_location_assignment PIN_B16 -to CLK2
+set_location_assignment PIN_E11 -to CLK3
+set_location_assignment PIN_A14 -to CLK4
+set_location_assignment PIN_C16 -to RST_SIG1
+set_location_assignment PIN_G15 -to RST_SIG2
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
