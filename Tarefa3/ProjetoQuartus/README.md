@@ -11,8 +11,9 @@ O top-level principal e `cronometro.vhd`. O projeto foi separado para simular em
 
 - Conta em BCD usando quatro digitos de 4 bits.
 - Mostra a contagem nos displays de 7 segmentos.
+- Usa o clock da placa de 27 MHz como referencia e gera a cadencia por clock enable, sem divisor de clock dedicado.
 - Permite iniciar/pausar a contagem com `BTN_PLAY_PAUSE`.
-- Zera a contagem com `BTN_RESET` na borda de subida do clock.
+- Zera a contagem com `BTN_RESET` apenas quando o cronometro esta pausado e o botao fica pressionado por pelo menos 30 ms.
 - Exibe a parte baixa e a parte alta da contagem em `Q_cs` e `Q_s`.
 
 ## Arquivos principais
@@ -47,12 +48,12 @@ A cascata segue esta ideia:
 
 | Sinal            | Funcao                                                   |
 | ---------------- | -------------------------------------------------------- |
-| `CLK`            | Clock principal do cronometro.                           |
+| `CLK`            | Clock principal do cronometro. Usa a referencia de 27 MHz da placa. |
 | `CLR`            | Clear geral sincronico usado para zerar a logica.        |
 | `RST`            | Reset global assincrono do top-level e dos contadores.   |
 | `EN`             | Habilitacao geral da contagem.                           |
 | `BTN_PLAY_PAUSE` | Botao que alterna entre rodando e pausado.               |
-| `BTN_RESET`      | Botao que zera o cronometro na borda de subida do clock. |
+| `BTN_RESET`      | Botao com debounce de 30 ms; zera apenas quando pausado. |
 
 ### Sinais de saida
 
@@ -108,8 +109,9 @@ Esse fluxo usa o netlist e o SDF gerados pelo Quartus em `simulation/modelsim/`.
 
 - O fluxo RTL serve para validar a logica do projeto sem atraso de propagacao.
 - O fluxo gate-level mostra o mesmo comportamento funcional, mas com tempos diferentes por causa do netlist e do SDF.
-- Os sinais `CLK2`, `CLK3`, `CLK4`, `RST_SIG1` e `RST_SIG2` sao sinais de observacao. Eles nao sao clocks reais do circuito.
+- Os sinais `CLK2`, `CLK3`, `CLK4`, `RST_SIG1` e `RST_SIG2` sao sinais de observacao. `CLK2/3/4` exibem os pulsos de enable dos digitos e `RST_SIG1/2` mostram eventos de reset/clear. Eles nao sao clocks reais do circuito.
 - A pinagem da placa esta definida em `cronometro.qsf`.
+- Os testbenches usam o clock equivalente de 27 MHz na simulacao (37 ns por ciclo); a cadencia de 10 ms continua sendo gerada internamente por clock enable.
 
 ## Como abrir no Quartus
 

@@ -6,12 +6,14 @@ entity cronometro_rtl_tb is
 end entity cronometro_rtl_tb;
 
 architecture tb of cronometro_rtl_tb is
-    constant CLK_PERIOD : time := 10 ms;
+    constant CLK_PERIOD : time := 37 ns;
     constant BUTTON_HOLD : time := 40 ms;
-    constant SETTLE_TIME : time := 20 ms;
+    constant SETTLE_TIME : time := 40 ms;
 
     signal clk : std_logic := '0';
     signal rst : std_logic := '0';
+    signal EN : std_logic := '1';
+    signal CLR : std_logic := '0';
     signal btn_play_pause : std_logic := '0';
     signal btn_reset : std_logic := '0';
     signal q_cs  : std_logic_vector(7 downto 0);
@@ -31,8 +33,8 @@ begin
         port map (
             CLK => clk,
             RST => rst,
-            EN  => '1',
-            CLR => '0',
+            EN  => EN,
+            CLR => CLR,
             BTN_PLAY_PAUSE => btn_play_pause,
             BTN_RESET => btn_reset,
             Q_cs  => q_cs,
@@ -63,19 +65,26 @@ begin
         btn_play_pause <= '0';
         btn_reset <= '0';
         rst <= '1';
-        wait for 2 * CLK_PERIOD;
+        wait for 5 * CLK_PERIOD;
         rst <= '0';
+        wait for 5 * CLK_PERIOD;
 
-        wait for 2 * CLK_PERIOD;
         btn_play_pause <= '1';
         wait for BUTTON_HOLD;
         btn_play_pause <= '0';
         wait for SETTLE_TIME;
 
+        wait for 120 ms;
+
+        btn_reset <= '1';
+        wait for BUTTON_HOLD;
+        btn_reset <= '0';
+        wait for SETTLE_TIME;
+
         btn_play_pause <= '1';
         wait for BUTTON_HOLD;
         btn_play_pause <= '0';
-        wait for 3 * SETTLE_TIME;
+        wait for SETTLE_TIME;
 
         btn_reset <= '1';
         wait for BUTTON_HOLD;

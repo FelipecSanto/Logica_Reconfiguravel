@@ -50,6 +50,8 @@ catch {delete wave *}
 
 log sim:/cronometro_rtl_tb/clk
 log sim:/cronometro_rtl_tb/rst
+log sim:/cronometro_rtl_tb/EN
+log sim:/cronometro_rtl_tb/CLR
 log sim:/cronometro_rtl_tb/btn_play_pause
 log sim:/cronometro_rtl_tb/btn_reset
 log sim:/cronometro_rtl_tb/q_cs
@@ -58,11 +60,21 @@ log sim:/cronometro_rtl_tb/hex0
 log sim:/cronometro_rtl_tb/hex1
 log sim:/cronometro_rtl_tb/hex2
 log sim:/cronometro_rtl_tb/hex3
+log sim:/cronometro_rtl_tb/dut/CLK2
+log sim:/cronometro_rtl_tb/dut/CLK3
+log sim:/cronometro_rtl_tb/dut/CLK4
+log sim:/cronometro_rtl_tb/dut/RST_SIG1
+log sim:/cronometro_rtl_tb/dut/RST_SIG2
 log sim:/cronometro_rtl_tb/dut/state
+log sim:/cronometro_rtl_tb/dut/play_stable
+log sim:/cronometro_rtl_tb/dut/reset_stable
+log sim:/cronometro_rtl_tb/dut/tick_count
 
 add wave -divider "Entradas"
 add wave -noupdate sim:/cronometro_rtl_tb/clk
 add wave -noupdate sim:/cronometro_rtl_tb/rst
+add wave -noupdate sim:/cronometro_rtl_tb/EN
+add wave -noupdate sim:/cronometro_rtl_tb/CLR
 add wave -noupdate sim:/cronometro_rtl_tb/btn_play_pause
 add wave -noupdate sim:/cronometro_rtl_tb/btn_reset
 
@@ -76,6 +88,14 @@ add wave -noupdate -binary sim:/cronometro_rtl_tb/hex3
 
 add wave -divider "Controle"
 add wave -noupdate sim:/cronometro_rtl_tb/dut/state
+add wave -noupdate sim:/cronometro_rtl_tb/dut/play_stable
+add wave -noupdate sim:/cronometro_rtl_tb/dut/reset_stable
+add wave -noupdate sim:/cronometro_rtl_tb/dut/tick_count
+add wave -noupdate sim:/cronometro_rtl_tb/dut/CLK2
+add wave -noupdate sim:/cronometro_rtl_tb/dut/CLK3
+add wave -noupdate sim:/cronometro_rtl_tb/dut/CLK4
+add wave -noupdate sim:/cronometro_rtl_tb/dut/RST_SIG1
+add wave -noupdate sim:/cronometro_rtl_tb/dut/RST_SIG2
 
 configure wave -namecolwidth 120
 configure wave -valuecolwidth 80

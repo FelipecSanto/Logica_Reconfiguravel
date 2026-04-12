@@ -45,6 +45,8 @@ catch {delete wave *}
 add wave -divider "Entradas"
 add wave -noupdate sim:/cronometro_gate_tb/clk
 add wave -noupdate sim:/cronometro_gate_tb/rst
+add wave -noupdate sim:/cronometro_gate_tb/EN
+add wave -noupdate sim:/cronometro_gate_tb/CLR
 add wave -noupdate sim:/cronometro_gate_tb/btn_play_pause
 add wave -noupdate sim:/cronometro_gate_tb/btn_reset
 
@@ -55,10 +57,15 @@ add wave -noupdate -binary sim:/cronometro_gate_tb/hex0
 add wave -noupdate -binary sim:/cronometro_gate_tb/hex1
 add wave -noupdate -binary sim:/cronometro_gate_tb/hex2
 add wave -noupdate -binary sim:/cronometro_gate_tb/hex3
+add wave -noupdate sim:/cronometro_gate_tb/clk2
+add wave -noupdate sim:/cronometro_gate_tb/clk3
+add wave -noupdate sim:/cronometro_gate_tb/clk4
+add wave -noupdate sim:/cronometro_gate_tb/rst_sig1
+add wave -noupdate sim:/cronometro_gate_tb/rst_sig2
 
 add wave -divider "Controle"
 add wave -noupdate /cronometro_gate_tb/dut/\\state~q\\
 add wave -noupdate /cronometro_gate_tb/dut/\\play_prev~q\\
-configure -timelineunits ms
+configure wave -timelineunits ms
 update
 catch {wave zoom full}
