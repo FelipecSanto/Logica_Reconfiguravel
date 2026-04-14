@@ -51,6 +51,10 @@ architecture rtl of cronometro is
 	signal q3 : std_logic_vector(3 downto 0) := (others => '0');
 
 	signal tick_enable : std_logic;
+
+	attribute keep : boolean;
+	attribute keep of tick_enable : signal is true;
+
 	signal count_enable : std_logic;
 	signal reset_button_clear : std_logic;
 
@@ -68,15 +72,15 @@ begin
 	count_enable <= EN and state and tick_enable;
 	reset_button_clear <= '1' when (reset_stable = '1' and reset_prev = '0' and state = '0') else '0';
 
-	q0_en <= '1' when (count_enable = '1' and q0 /= "1010") else '0';
-	q1_en <= '1' when (count_enable = '1' and q0 = "1010" and q1 /= "1010") else '0';
-	q2_en <= '1' when (count_enable = '1' and q0 = "1010" and q1 = "1010" and q2 /= "1010") else '0';
-	q3_en <= '1' when (count_enable = '1' and q0 = "1010" and q1 = "1010" and q2 = "1010" and q3 /= "0101") else '0';
+	q0_en <= '1' when (count_enable = '1' and q0 /= "1001") else '0';
+	q1_en <= '1' when (count_enable = '1' and q0 = "1001" and q1 /= "1001") else '0';
+	q2_en <= '1' when (count_enable = '1' and q0 = "1001" and q1 = "1001" and q2 /= "1001") else '0';
+	q3_en <= '1' when (count_enable = '1' and q0 = "1001" and q1 = "1001" and q2 = "1001" and q3 /= "0101") else '0';
 
-	q0_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1010")) else '0';
-	q1_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1010" and q1 = "1010")) else '0';
-	q2_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1010" and q1 = "1010" and q2 = "1010")) else '0';
-	q3_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1010" and q1 = "1010" and q2 = "1010" and q3 = "0101")) else '0';
+	q0_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1001")) else '0';
+	q1_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1001" and q1 = "1001")) else '0';
+	q2_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1001" and q1 = "1001" and q2 = "1001")) else '0';
+	q3_clr <= '1' when (CLR = '1' or reset_button_clear = '1' or (count_enable = '1' and q0 = "1001" and q1 = "1001" and q2 = "1001" and q3 = "0101")) else '0';
 
 	process(CLK, RST)
 	begin
