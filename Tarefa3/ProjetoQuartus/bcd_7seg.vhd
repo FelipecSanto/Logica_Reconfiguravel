@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 entity bcd_7seg is
 	port (
 		BCD : in  std_logic_vector(3 downto 0);
-		SEG : out std_logic_vector(6 downto 0)  -- a, b, c, d, e, f, g
+		SEG : out std_logic_vector(6 downto 0)  -- g, f, e, d, c, b, a
 	);
 end entity bcd_7seg;
 

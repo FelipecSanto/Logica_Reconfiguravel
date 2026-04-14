@@ -2,10 +2,7 @@
 
 Projeto VHDL de um cronometro digital para Quartus II 13.0 SP1 e ModelSim-Altera, com alvo Cyclone IV E / DE2.
 
-O top-level principal e `cronometro.vhd`. O projeto foi separado para simular em dois fluxos:
-
-- RTL, para validar a logica funcional.
-- Gate-level, para validar o netlist gerado pelo Quartus com atraso de propagacao.
+O top-level principal e `cronometro.vhd`. O projeto foi organizado para simular em um unico fluxo RTL.
 
 ## O que o projeto faz
 
@@ -22,11 +19,10 @@ O top-level principal e `cronometro.vhd`. O projeto foi separado para simular em
 - `cont_4.vhd`: contador de 4 bits usado em cascata.
 - `bcd_7seg.vhd`: decodificador BCD para 7 segmentos.
 - `cronometro_rtl_tb.vhd`: testbench da simulacao RTL.
-- `cronometro_gate_tb.vhd`: testbench da simulacao gate-level.
 - `cronometro_rtl.do`: script da simulacao RTL no ModelSim.
-- `cronometro_gate.do`: script da simulacao gate-level no ModelSim.
 - `cronometro.qpf`: projeto do Quartus.
 - `cronometro.qsf`: pinagem e arquivos de fonte do Quartus.
+- `cronometro.sdc`: restricao de clock da placa.
 
 ## Como a contagem funciona
 
@@ -46,14 +42,14 @@ A cascata segue esta ideia:
 
 ### Sinais de entrada
 
-| Sinal            | Funcao                                                   |
-| ---------------- | -------------------------------------------------------- |
+| Sinal            | Funcao                                                              |
+| ---------------- | ------------------------------------------------------------------- |
 | `CLK`            | Clock principal do cronometro. Usa a referencia de 27 MHz da placa. |
-| `CLR`            | Clear geral sincronico usado para zerar a logica.        |
-| `RST`            | Reset global assincrono do top-level e dos contadores.   |
-| `EN`             | Habilitacao geral da contagem.                           |
-| `BTN_PLAY_PAUSE` | Botao que alterna entre rodando e pausado.               |
-| `BTN_RESET`      | Botao com debounce de 30 ms; zera apenas quando pausado. |
+| `CLR`            | Clear geral sincronico usado para zerar a logica.                   |
+| `RST`            | Reset global assincrono do top-level e dos contadores.              |
+| `EN`             | Habilitacao geral da contagem.                                      |
+| `BTN_PLAY_PAUSE` | Botao que alterna entre rodando e pausado.                          |
+| `BTN_RESET`      | Botao com debounce de 30 ms; zera apenas quando pausado.            |
 
 ### Sinais de saida
 
@@ -78,8 +74,9 @@ A cascata segue esta ideia:
 | `state`                                | Indica se o cronometro esta rodando (`1`) ou pausado (`0`).                |
 | `play_prev`                            | Guarda o valor anterior de `BTN_PLAY_PAUSE` para detectar borda de subida. |
 | `q0`, `q1`, `q2`, `q3`                 | Digitos BCD internos do cronometro.                                        |
-| `count_enable`                         | Habilita a contagem quando `EN = 1`, `state = 1` e `BTN_RESET = 0`.        |
-| `reset_active`                         | Combina `RST` e `BTN_RESET` para limpar a logica.                          |
+| `tick_enable`                          | Pulso interno de 10 ms gerado a partir do clock da placa.                  |
+| `count_enable`                         | Habilita a contagem quando `EN = 1`, `state = 1` e ocorre o pulso `tick_enable`. |
+| `reset_button_clear`                   | Gera um clear quando o botao de reset debounced e pressionado em pausa.    |
 | `q0_en`, `q1_en`, `q2_en`, `q3_en`     | Enables individuais de cada digito.                                        |
 | `q0_clr`, `q1_clr`, `q2_clr`, `q3_clr` | Clears individuais de cada digito.                                         |
 
@@ -95,26 +92,16 @@ do cronometro_rtl.do
 
 Esse fluxo compila `cont_4.vhd`, `bcd_7seg.vhd`, `cronometro.vhd` e `cronometro_rtl_tb.vhd` e abre a Wave com os sinais principais.
 
-### Gate-level
-
-Use o script:
-
-```tcl
-do cronometro_gate.do
-```
-
-Esse fluxo usa o netlist e o SDF gerados pelo Quartus em `simulation/modelsim/`.
-
 ## Observacoes
 
 - O fluxo RTL serve para validar a logica do projeto sem atraso de propagacao.
-- O fluxo gate-level mostra o mesmo comportamento funcional, mas com tempos diferentes por causa do netlist e do SDF.
-- Os sinais `CLK2`, `CLK3`, `CLK4`, `RST_SIG1` e `RST_SIG2` sao sinais de observacao. `CLK2/3/4` exibem os pulsos de enable dos digitos e `RST_SIG1/2` mostram eventos de reset/clear. Eles nao sao clocks reais do circuito.
+- Na simulacao RTL, o clock fisico equivalente a 27 MHz (37.037 ns) fica oculto na Wave; o pulso de 10 ms aparece pelo sinal interno `tick_enable`.
+- Os scripts de simulacao mostram apenas os sinais principais por padrao, para deixar a Wave mais limpa.
 - A pinagem da placa esta definida em `cronometro.qsf`.
-- Os testbenches usam o clock equivalente de 27 MHz na simulacao (37 ns por ciclo); a cadencia de 10 ms continua sendo gerada internamente por clock enable.
+- A simulacao RTL usa o clock fisico da placa; a cadencia visivel de 10 ms vem do clock enable interno.
 
 ## Como abrir no Quartus
 
 1. Abra o arquivo `cronometro.qpf`.
 2. Compile o projeto.
-3. Rode a simulacao RTL ou gate-level no ModelSim usando os scripts do projeto.
+3. Rode a simulacao RTL no ModelSim usando o script do projeto.

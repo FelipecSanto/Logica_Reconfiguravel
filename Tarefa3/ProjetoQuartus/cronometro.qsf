@@ -58,6 +58,7 @@ set_global_assignment -name VHDL_FILE bcd_7seg.vhd
 set_global_assignment -name VHDL_FILE cont_4.vhd
 set_global_assignment -name VHDL_FILE cronometro.vhd
 set_global_assignment -name VHDL_FILE cronometro_rtl_tb.vhd
+set_global_assignment -name SDC_FILE cronometro.sdc
 
 set_location_assignment PIN_E1 -to CLK
 set_location_assignment PIN_M2 -to RST

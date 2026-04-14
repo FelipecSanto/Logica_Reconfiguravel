@@ -6,9 +6,9 @@ entity cronometro_rtl_tb is
 end entity cronometro_rtl_tb;
 
 architecture tb of cronometro_rtl_tb is
-    constant CLK_PERIOD : time := 37 ns;
+    constant CLK_PERIOD : time := 37.037 ns;
     constant BUTTON_HOLD : time := 40 ms;
-    constant SETTLE_TIME : time := 40 ms;
+    constant SETTLE_TIME : time := 20 ms;
 
     signal clk : std_logic := '0';
     signal rst : std_logic := '0';
