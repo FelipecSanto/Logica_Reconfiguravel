@@ -100,9 +100,9 @@ begin
 				tick_count <= tick_count + 1;
 			end if;
 
-			play_meta <= BTN_PLAY_PAUSE;
+			play_meta <= not BTN_PLAY_PAUSE;
 			play_sync <= play_meta;
-			reset_meta <= BTN_RESET;
+			reset_meta <= not BTN_RESET;
 			reset_sync <= reset_meta;
 
 			if play_sync = play_stable then

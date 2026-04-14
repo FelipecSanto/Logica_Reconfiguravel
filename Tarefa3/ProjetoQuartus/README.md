@@ -48,8 +48,8 @@ A cascata segue esta ideia:
 | `CLR`            | Clear geral sincronico usado para zerar a logica.                   |
 | `RST`            | Reset global assincrono do top-level e dos contadores.              |
 | `EN`             | Habilitacao geral da contagem.                                      |
-| `BTN_PLAY_PAUSE` | Botao que alterna entre rodando e pausado.                          |
-| `BTN_RESET`      | Botao com debounce de 30 ms; zera apenas quando pausado.            |
+| `BTN_PLAY_PAUSE` | Botao ativo em nivel baixo que alterna entre rodando e pausado.     |
+| `BTN_RESET`      | Botao ativo em nivel baixo; zera apenas quando pausado.             |
 
 ### Sinais de saida
 
@@ -95,6 +95,7 @@ Esse fluxo compila `cont_4.vhd`, `bcd_7seg.vhd`, `cronometro.vhd` e `cronometro_
 ## Observacoes
 
 - O fluxo RTL serve para validar a logica do projeto sem atraso de propagacao.
+- Os botoes da DE2 sao ativos em nivel baixo; o projeto inverte esses sinais internamente antes do debounce e da deteccao de borda.
 - Na simulacao RTL, o clock fisico equivalente a 27 MHz (37.037 ns) fica oculto na Wave; o pulso de 10 ms aparece pelo sinal interno `tick_enable`.
 - Os scripts de simulacao mostram apenas os sinais principais por padrao, para deixar a Wave mais limpa.
 - A pinagem da placa esta definida em `cronometro.qsf`.

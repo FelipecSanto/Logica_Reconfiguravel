@@ -62,38 +62,38 @@ begin
 
     stimulus : process
     begin
-        btn_play_pause <= '0';
-        btn_reset <= '0';
+        btn_play_pause <= '1';
+        btn_reset <= '1';
         rst <= '1';
         wait for 5 * CLK_PERIOD;
         rst <= '0';
         wait for 5 * CLK_PERIOD;
 
-        btn_play_pause <= '1';
-        wait for BUTTON_HOLD;
         btn_play_pause <= '0';
+        wait for BUTTON_HOLD;
+        btn_play_pause <= '1';
         wait for SETTLE_TIME;
 
         wait for 120 ms;
 
-        btn_reset <= '1';
-        wait for BUTTON_HOLD;
         btn_reset <= '0';
-        wait for SETTLE_TIME;
-
-        btn_play_pause <= '1';
         wait for BUTTON_HOLD;
-        btn_play_pause <= '0';
-        wait for SETTLE_TIME;
-
         btn_reset <= '1';
-        wait for BUTTON_HOLD;
-        btn_reset <= '0';
         wait for SETTLE_TIME;
 
-        btn_play_pause <= '1';
-        wait for BUTTON_HOLD;
         btn_play_pause <= '0';
+        wait for BUTTON_HOLD;
+        btn_play_pause <= '1';
+        wait for SETTLE_TIME;
+
+        btn_reset <= '0';
+        wait for BUTTON_HOLD;
+        btn_reset <= '1';
+        wait for SETTLE_TIME;
+
+        btn_play_pause <= '0';
+        wait for BUTTON_HOLD;
+        btn_play_pause <= '1';
         wait for SETTLE_TIME;
 
         wait;
