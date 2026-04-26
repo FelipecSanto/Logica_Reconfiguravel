@@ -1,0 +1,8 @@
+Comparacao da frequencia maxima
+
+- No Quartus, o clock principal clk apresentou Fmax de 534,76 MHz, o que corresponde a um período crítico de aproximadamente 1,870 ns.
+- Na simulação gate-level, o pior caso observado foi a saída total_sum, com atraso máximo de 7,918 ns. Convertendo esse atraso em frequência equivalente, o resultado fica em torno de 126,3 MHz.
+- Esse valor de gate-level não é um Fmax novo medido diretamente pelo simulador; ele é uma frequência equivalente obtida a partir do atraso de propagação observado na waveform.
+- Entre as opções do item B, os atrasos observados foram: total_demx com 5,288 ns, total_bit com 5,838 ns, total_for com 5,933 ns, total_case com 6,124 ns, total_if com 6,136 ns, total_while com 6,706 ns e total_sum com 7,918 ns.
+- A ordem geral mostra que a soma direta foi a opção mais lenta nesta síntese, enquanto a solução com demux ficou mais rápida.
+- No item A, o comportamento é sequencial, bit a bit, então o atraso está ligado ao registrador de estado e ao controle do contador, e não a uma soma completa no mesmo ciclo.
