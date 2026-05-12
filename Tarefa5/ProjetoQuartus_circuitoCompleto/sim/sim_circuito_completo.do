@@ -1,10 +1,14 @@
 vlib work
 vmap work work
+vcom -2002 ../../ProjetoQuartus_BRAM/src/bram_gen.vhd
+vcom -2002 ../../ProjetoQuartus_BRAM/src/bram_gen_Initialized.vhd
+vcom -2002 ../../ProjetoQuartus_FIFO/src/fifo_gen.vhd
 vcom -2002 ../src/sync_bram.vhd
 vcom -2002 ../src/sync_fifo.vhd
 vcom -2002 ../src/flow_controller.vhd
 vcom -2002 ../src/circuito_completo.vhd
 vcom -2002 ../src/circuito_completo_tb.vhd
+file copy -force ../src/bram_init_data.mif ./bram_init_data.mif
 vsim -voptargs=+acc work.circuito_completo_tb
 configure wave -timelineunits ns
 add wave -divider "Clock e reset"
@@ -13,8 +17,6 @@ add wave /circuito_completo_tb/rst
 
 add wave -divider "Endereços"
 add wave -radix unsigned /circuito_completo_tb/dut/u_ctrl/src_addr
-add wave -radix unsigned /circuito_completo_tb/dut/u_fifo/wr_ptr
-add wave -radix unsigned /circuito_completo_tb/dut/u_fifo/rd_ptr
 add wave -radix unsigned /circuito_completo_tb/dut/u_ctrl/dst_addr
 
 add wave -divider "Controle"

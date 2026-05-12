@@ -9,7 +9,6 @@ architecture sim of bram_tb is
     constant CLK_PERIOD : time := 10 ns;
 
     signal clk  : std_logic := '0';
-    signal rst  : std_logic := '1';
     signal we   : std_logic := '0';
     signal addr : unsigned(10 downto 0) := (others => '0');
     signal din  : std_logic_vector(7 downto 0) := (others => '0');
@@ -23,7 +22,6 @@ begin
         )
         port map (
             clk => clk,
-            rst => rst,
             we => we,
             addr => addr,
             din => din,
@@ -32,11 +30,6 @@ begin
 
     stim : process
     begin
-        rst <= '1';
-        we <= '0';
-        wait for CLK_PERIOD * 2;
-
-        rst <= '0';
         we <= '1';
         din <= std_logic_vector(to_unsigned(255, din'length));
         addr <= to_unsigned(1, addr'length);
@@ -53,9 +46,6 @@ begin
         wait for CLK_PERIOD * 2;
 
         we <= '0';
-        rst <= '1';
-        wait for CLK_PERIOD * 2;
-
         addr <= to_unsigned(1, addr'length);
         wait for CLK_PERIOD * 2;
 

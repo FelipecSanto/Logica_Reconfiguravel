@@ -41,7 +41,6 @@ begin
         )
         port map (
             clk => clk,
-            rst => rst,
             we => '0',
             addr => src_addr,
             din => (others => '0'),
@@ -67,7 +66,6 @@ begin
         )
         port map (
             clk => clk,
-            rst => rst,
             we => dst_we,
             addr => dst_addr,
             din => fifo_dout,

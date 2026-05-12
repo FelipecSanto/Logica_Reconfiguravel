@@ -17,16 +17,16 @@ Implementar e validar um sistema de controle de fluxo entre dois blocos de memó
 
 ### 2.1 Validação dos blocos individuais
 
-Foram implementados e testados separadamente:
+Os blocos individuais foram gerados no Quartus e testados separadamente antes da integração. Para manter a interface do restante do projeto, cada IP foi encapsulada em um wrapper VHDL simples.
 
 - **BRAM (2048 x 8 bits)**  
-  Escrita síncrona, leitura direta e reset responsável pela inicialização. A simulação confirmou o correto armazenamento e leitura dos dados.
+  Implementada com a megafunction `altsyncram` gerada pelo wizard do Quartus. Foram usadas duas variantes do mesmo bloco: uma inicializada por arquivo `.mif` para a BRAM de origem e outra sem inicialização para a BRAM de destino. A simulação confirmou o correto acesso aos dados e o comportamento esperado da memória gerada.
 
 - **Simulação da BRAM**:  
 ![](../ProjetoQuartus_BRAM/sim_bram_snapshot.png)
 
 - **FIFO (1024 x 8 bits)**  
-  Implementada com controle por ponteiros e contador de ocupação. Foram verificados o funcionamento dos sinais `full`, `empty` e `usedw`, além da preservação da ordem dos dados.
+  Implementada com a megafunction `scfifo` gerada pelo wizard do Quartus. Foram verificados o funcionamento dos sinais `full`, `empty` e `usedw`, além da preservação da ordem dos dados na fila.
 
 - **Simulação da FIFO**:  
 ![](../ProjetoQuartus_FIFO/sim_fifo_snapshot.png)
@@ -51,26 +51,23 @@ A leitura foi desacelerada por um contador, permitindo uma operação a cada 7 c
 
 ### 3.1 BRAM
 
-- Memória implementada como vetor interno;
-- Escrita síncrona na borda de subida do clock;
-- Leitura combinacional;
-- Uso de `generic` para inicialização:
-  - sequência crescente (origem);
-  - valores zerados (destino).
+- Bloco gerado pelo Quartus a partir da megafunction `altsyncram`, em modo de porta simples;
+- Capacidade de 2048 palavras de 8 bits;
+- O wrapper `sync_bram` mantém a interface do projeto e seleciona a variante da IP por meio do `generic` `INIT_SEQUENCE`;
+- Na BRAM de origem é usada a versão `bram_gen_Initialized`, carregada a partir do arquivo `bram_init_data.mif`;
+- Na BRAM de destino é usada a versão `bram_gen`, sem arquivo de inicialização.
 
 ### 3.2 FIFO
 
-- Estrutura baseada em:
-  - memória interna;
-  - ponteiros de leitura e escrita;
-  - contador de ocupação;
-- Atualização consistente do contador mesmo com operações simultâneas;
-- Sinais derivados:
-  - `full`, `empty`, `usedw`.
+- Bloco gerado pelo Quartus a partir da megafunction `scfifo`;
+- Capacidade de 1024 palavras de 8 bits;
+- Sinais `full`, `empty` e `usedw` fornecidos diretamente pela própria IP;
+- Reset conectado ao pino `aclr` da FIFO gerada;
+- O wrapper `sync_fifo` apenas adapta a interface do projeto e converte `usedw` para o tipo `unsigned` usado pelo controlador.
 
 ### 3.3 Controlador de fluxo
 
-Duas máquinas de estado foram utilizadas:
+Duas máquinas de estado foram utilizadas, que operam de forma paralela e coordenada para controlar a escrita e leitura:
 
 #### Escrita
 - `wr_reset → wr_load → wr_fifo → wr_wait → wr_fifo → wr_wait → ... → wr_done`
@@ -130,8 +127,8 @@ Nessas imagens é mostrada a primeira vez em que a FIFO chega a 50% de ocupaçã
 
 O sistema implementado atende aos requisitos da atividade, demonstrando corretamente:
 
-- uso de BRAM como armazenamento;
-- uso de FIFO para desacoplamento de taxas;
+- uso de BRAM gerada pelo Quartus como armazenamento;
+- uso de FIFO gerada pelo Quartus para desacoplamento de taxas;
 - controle de fluxo baseado em ocupação;
 - operação com diferentes velocidades de leitura e escrita.
 

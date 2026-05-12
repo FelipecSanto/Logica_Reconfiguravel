@@ -1,0 +1,16 @@
+# Quartus generated output
+**/db/
+**/incremental_db/
+**/output_files/
+**/*.qws
+**/*_nativelink_simulation.rpt
+**/greybox_tmp/
+**/simulation/
+
+# ModelSim generated output
+**/modelsim.ini
+**/transcript
+**/msim_transcript
+**/vsim.wlf
+**/work/
+**/rtl_work/

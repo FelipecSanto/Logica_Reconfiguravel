@@ -57,11 +57,17 @@ begin
 
         rst <= '0';
         wr_en <= '1';
-        rd_en <= '1';
+        rd_en <= '0';
         for i in 0 to 7 loop
             din <= std_logic_vector(to_unsigned((i + 1) * 20, din'length));
             wait for CLK_PERIOD;
         end loop;
+
+        wr_en <= '0';
+        rd_en <= '1';
+        wait for CLK_PERIOD * 8;
+
+        rd_en <= '0';
         wait;
     end process;
 end architecture;
